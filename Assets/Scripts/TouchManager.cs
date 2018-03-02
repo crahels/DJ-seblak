@@ -8,6 +8,7 @@ public class TouchManager : MonoBehaviour {
 	Rect rightScreen = new Rect(Screen.width/2, 0, Screen.width/2, Screen.height);
     public Text textLeft;
     public Text textRight;
+    public Text textDown;
     bool left = false;
     bool right = false;
 
@@ -116,10 +117,13 @@ public class TouchManager : MonoBehaviour {
     void Update() {
 		foreach(Touch touch in Input.touches)
         {
+            // check if touch occurs in left side
             if(leftScreen.Contains(touch.position))
             {
                 left = true;
             }
+
+            // check if touch occurs in right side
             if (rightScreen.Contains(touch.position))
             {
                 right = true;
@@ -132,10 +136,14 @@ public class TouchManager : MonoBehaviour {
             SimpleGesture.On4AxisSwipeUp(swipeUpScreen);
             SimpleGesture.On4AxisSwipeDown(swipeDownScreen);
             SimpleGesture.OnTap(tapScreen);
+
+            // show hit object
+            Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
+            RaycastHit[] hits = Physics.RaycastAll(touchRay);
+            textDown.text = "o: " + hits[0].transform.gameObject.tag.ToString();
         }
-	}
-
-
+    }
+    
 	/*GameObject gObj = null;
 	Plane objPlane;
 	Vector3 m0;
