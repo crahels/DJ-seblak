@@ -40,21 +40,21 @@ public class TouchManager : MonoBehaviour {
             text.text = "swipe left";
             if (foodStatus[0])
             {
-                if (objectAbove[0].transform.position.y >= transform.position.y + 5)
+                if (objectAbove[0].transform.position.y >= transform.position.y + 5 || objectAbove[0].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[0]);
                     textStatus.text = "ceker good";
-                } else if (objectAbove[0].transform.position.y <= transform.position.y + 5)
+                } else if (objectAbove[0].transform.position.y <= transform.position.y + 5 && objectAbove[0].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[0]);
                     textStatus.text = "ceker perfect";
                 }
                 foodPressed[0] = true;
-            } else
+            } /*else
             {
                 // miss
                 textStatus.text = "ceker miss";
-            }
+            }*/
             fingerTouch = false;
         }
     }
@@ -75,22 +75,22 @@ public class TouchManager : MonoBehaviour {
             text.text = "swipe up";
             if (foodStatus[1])
             {
-                if (objectAbove[1].transform.position.y >= transform.position.y + 5)
+                if (objectAbove[1].transform.position.y >= transform.position.y + 5 || objectAbove[1].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[1]);
                     textStatus.text = "kerupuk good";
                 }
-                else if (objectAbove[1].transform.position.y <= transform.position.y + 5)
+                else if (objectAbove[1].transform.position.y <= transform.position.y + 5 && objectAbove[1].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[1]);
                     textStatus.text = "kerupuk perfect";
                 }
                 foodPressed[1] = true;
-            } else
+            } /*else
             {
                 // miss
                 textStatus.text = "kerupuk miss";
-            }
+            }*/
             fingerTouch = false;
         }
     }
@@ -102,22 +102,22 @@ public class TouchManager : MonoBehaviour {
             text.text = "swipe down";
             if (foodStatus[2])
             {
-                if (objectAbove[2].transform.position.y >= transform.position.y + 5)
+                if (objectAbove[2].transform.position.y >= transform.position.y + 5 || objectAbove[2].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[2]);
                     textStatus.text = "siomay good";
                 }
-                else if (objectAbove[2].transform.position.y <= transform.position.y + 5)
+                else if (objectAbove[2].transform.position.y <= transform.position.y + 5 && objectAbove[2].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[2]);
                     textStatus.text = "siomay perfect";
                 }
                 foodPressed[2] = true;
-            } else
+            } /*else
             {
                 // miss
                 textStatus.text = "siomay miss";
-            }
+            }*/
             fingerTouch = false;
         }
     }
@@ -138,22 +138,22 @@ public class TouchManager : MonoBehaviour {
             text.text = "circle";
             if (foodStatus[3])
             {
-                if (objectAbove[3].transform.position.y >= transform.position.y + 5)
+                if (objectAbove[3].transform.position.y >= transform.position.y + 5 || objectAbove[3].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[3]);
                     textStatus.text = "bakso good";
                 }
-                else if (objectAbove[3].transform.position.y <= transform.position.y + 5)
+                else if (objectAbove[3].transform.position.y <= transform.position.y + 5 && objectAbove[3].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[3]);
                     textStatus.text = "bakso perfect";
                 }
                 foodPressed[3] = true;
-            } else
+            } /*else
             {
                 // miss
                 textStatus.text = "bakso miss";
-            }
+            }*/
             fingerTouch = false;
         }
     }
