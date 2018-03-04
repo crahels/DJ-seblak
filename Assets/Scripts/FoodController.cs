@@ -13,7 +13,7 @@ public class FoodController : MonoBehaviour {
 
     void Start()
     {
-        rb.velocity = new Vector2(0, -speed);
+        //rb.velocity = new Vector2(0, -speed);
     }
 	
 	// Update is called once per frame
