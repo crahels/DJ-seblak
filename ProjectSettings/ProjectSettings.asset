@@ -7,7 +7,7 @@ PlayerSettings:
   productGUID: 1f6a536706c0c6f4bbff288608564380
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -555,7 +555,9 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: Dummy
+    7: Dummy
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
