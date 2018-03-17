@@ -82,6 +82,7 @@ public class SongParser : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        PlayerPrefs.SetFloat("combo", 0);
         songAudio = transform.GetComponent<AudioSource>();
         songAudio.Play();
         TextAsset level = Resources.Load("External/demo", typeof(TextAsset)) as TextAsset;
@@ -389,7 +390,7 @@ public class SongParser : MonoBehaviour
                     resource = "Prefabs/Bakso";
                     obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
-                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -100);
+                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
             }
             if (bar[i].right > 0)
             {
@@ -397,28 +398,32 @@ public class SongParser : MonoBehaviour
                 int y = 110;
                 int z = 10;
                 string resource;
+                GameObject obj;
                 if (bar[i].right == 1)
                 {
                     textRight.text = "swipe left";
                     resource = "Prefabs/Ceker";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 45)));
                 }
                 else if (bar[i].right == 2)
                 {
                     textRight.text = "swipe up";
                     resource = "Prefabs/Kerupuk";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
                 else if (bar[i].right == 3)
                 {
                     textRight.text = "swipe down";
                     resource = "Prefabs/Siomay";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
                 else
                 {
                     textRight.text = "circle";
                     resource = "Prefabs/Bakso";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
-                GameObject obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
-                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -100);
+                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
             }
             yield return new WaitForSeconds((barTime / bar.Count) - Time.deltaTime);
         }
