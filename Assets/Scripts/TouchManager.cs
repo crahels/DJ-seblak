@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TouchManager : MonoBehaviour {
-    public Text text;
     public Text textStatus;
 	public Text scoreText;
 	public Text comboText;
@@ -44,16 +43,24 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "swipe left";
+            //text.text = "swipe left";
             if (foodStatus[0])
             {
                 if (objectAbove[0].transform.position.y >= transform.position.y + 5 || objectAbove[0].transform.position.y <= transform.position.y - 5)
                 {
+                    foodStatus[0] = false;
+                    foodPressed[0] = false;
+                    objectAbove[0] = null;
+
                     Destroy(objectAbove[0]);
 					textStatus.text = "ceker good";
 					UpdateScore(0, 1);
                 } else if (objectAbove[0].transform.position.y <= transform.position.y + 5 && objectAbove[0].transform.position.y >= transform.position.y - 5)
                 {
+                    foodStatus[0] = false;
+                    foodPressed[0] = false;
+                    objectAbove[0] = null;
+
                     Destroy(objectAbove[0]);
 					textStatus.text = "ceker perfect";
 					UpdateScore(0,0);
@@ -72,7 +79,7 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "swipe right";
+            //text.text = "swipe right";
             fingerTouch = false;
         }
     }
@@ -81,17 +88,25 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "swipe up";
+            //text.text = "swipe up";
             if (foodStatus[1])
             {
                 if (objectAbove[1].transform.position.y >= transform.position.y + 5 || objectAbove[1].transform.position.y <= transform.position.y - 5)
                 {
+                    foodStatus[1] = false;
+                    foodPressed[1] = false;
+                    objectAbove[1] = null;
+
                     Destroy(objectAbove[1]);
 					textStatus.text = "kerupuk good";
 					UpdateScore(1,1);
                 }
                 else if (objectAbove[1].transform.position.y <= transform.position.y + 5 && objectAbove[1].transform.position.y >= transform.position.y - 5)
                 {
+                    foodStatus[1] = false;
+                    foodPressed[1] = false;
+                    objectAbove[1] = null;
+
                     Destroy(objectAbove[1]);
 					textStatus.text = "kerupuk perfect";
 					UpdateScore(1,0);
@@ -110,17 +125,25 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "swipe down";
+            //text.text = "swipe down";
             if (foodStatus[2])
             {
                 if (objectAbove[2].transform.position.y >= transform.position.y + 5 || objectAbove[2].transform.position.y <= transform.position.y - 5)
                 {
+                    foodStatus[2] = false;
+                    foodPressed[2] = false;
+                    objectAbove[2] = null;
+
                     Destroy(objectAbove[2]);
 					textStatus.text = "siomay good";
 					UpdateScore(2,1);
                 }
                 else if (objectAbove[2].transform.position.y <= transform.position.y + 5 && objectAbove[2].transform.position.y >= transform.position.y - 5)
                 {
+                    foodStatus[2] = false;
+                    foodPressed[2] = false;
+                    objectAbove[2] = null;
+
                     Destroy(objectAbove[2]);
 					textStatus.text = "siomay perfect";
 					UpdateScore(2,0);
@@ -139,7 +162,7 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "tap";
+            //text.text = "tap";
             fingerTouch = false;
         }
     }
@@ -148,17 +171,25 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "circle";
+            //text.text = "circle";
             if (foodStatus[3])
             {
                 if (objectAbove[3].transform.position.y >= transform.position.y + 5 || objectAbove[3].transform.position.y <= transform.position.y - 5)
                 {
+                    foodStatus[3] = false;
+                    foodPressed[3] = false;
+                    objectAbove[3] = null;
+
                     Destroy(objectAbove[3]);
 					textStatus.text = "bakso good";
 					UpdateScore(3,1);
                 }
                 else if (objectAbove[3].transform.position.y <= transform.position.y + 5 && objectAbove[3].transform.position.y >= transform.position.y - 5)
                 {
+                    foodStatus[3] = false;
+                    foodPressed[3] = false;
+                    objectAbove[3] = null;
+
                     Destroy(objectAbove[3]);
 					textStatus.text = "bakso perfect";
 					UpdateScore(3,0);
@@ -177,7 +208,7 @@ public class TouchManager : MonoBehaviour {
     {
         if (fingerTouch)
         {
-            text.text = "zig zag";
+            //text.text = "zig zag";
             fingerTouch = false;
         }
     }
@@ -228,37 +259,43 @@ public class TouchManager : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        for (int i = 0; i < foodStatus.Length; i++)
+        int code = -1;
+        string item = "";
+        if (col.gameObject.tag.Equals("Food"))
         {
-            if (foodStatus[i] != foodPressed[i])
+            // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
+            if (col.gameObject.name.Equals("Bakso(Clone)"))
             {
-                // miss
-                string item = "";
-                if (i == 0)
-                {
-                    item = "ceker";
-                } else if (i == 1)
-                {
-                    item = "kerupuk";
-                } else if (i == 2)
-                {
-                    item = "siomay";
-                } else
-                {
-                    item = "bakso";
-				}
-				comboText.text = "0";
+                code = 3;
+                item = "bakso";
+            }
+            else if (col.gameObject.name.Equals("Ceker(Clone)"))
+            {
+                code = 0;
+                item = "ceker";
+            }
+            else if (col.gameObject.name.Equals("Kerupuk(Clone)"))
+            {
+                code = 1;
+                item = "kerupuk";
+            }
+            else // Siomay
+            {
+                code = 2;
+                item = "siomay";
+            }
+
+            if (foodStatus[code] != foodPressed[code])
+            {
+                comboText.text = "0";
                 textStatus.text = item + " miss";
             }
+
+            foodStatus[code] = false;
+            foodPressed[code] = false;
+            objectAbove[code] = null;
         }
 
-        for (int i = 0; i < foodStatus.Length; i++)
-        {
-            foodStatus[i] = false;
-            foodPressed[i] = false;
-            objectAbove[i] = null;
-        }
-        
         Destroy(col.gameObject);
     }
 

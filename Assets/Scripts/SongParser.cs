@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SongParser : MonoBehaviour
 {
+    public Text textLeft;
+    public Text textRight;
     //This structure contains all the information for this track
     public struct Metadata
     {
@@ -364,21 +367,29 @@ public class SongParser : MonoBehaviour
                 int y = 110;
                 int z = 10;
                 string resource;
+                GameObject obj = null;
                 if (bar[i].left == 1)
                 {
+                    textLeft.text = "swipe left";
                     resource = "Prefabs/Ceker";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 45)));
                 } else if (bar[i].left == 2)
                 {
+                    textLeft.text = "swipe up";
                     resource = "Prefabs/Kerupuk";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 } else if (bar[i].left == 3)
                 {
+                    textLeft.text = "swipe down";
                     resource = "Prefabs/Siomay";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 } else
                 {
+                    textLeft.text = "circle";
                     resource = "Prefabs/Bakso";
+                    obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
-                GameObject obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
-                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
+                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -100);
             }
             if (bar[i].right > 0)
             {
@@ -388,22 +399,26 @@ public class SongParser : MonoBehaviour
                 string resource;
                 if (bar[i].right == 1)
                 {
+                    textRight.text = "swipe left";
                     resource = "Prefabs/Ceker";
                 }
                 else if (bar[i].right == 2)
                 {
+                    textRight.text = "swipe up";
                     resource = "Prefabs/Kerupuk";
                 }
                 else if (bar[i].right == 3)
                 {
+                    textRight.text = "swipe down";
                     resource = "Prefabs/Siomay";
                 }
                 else
                 {
+                    textRight.text = "circle";
                     resource = "Prefabs/Bakso";
                 }
                 GameObject obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
-                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
+                obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -100);
             }
             yield return new WaitForSeconds((barTime / bar.Count) - Time.deltaTime);
         }
