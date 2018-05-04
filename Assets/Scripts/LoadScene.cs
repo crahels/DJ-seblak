@@ -10,5 +10,4 @@ public class LoadScene : MonoBehaviour {
     {
         SceneManager.LoadScene(index);
     }
-
 }

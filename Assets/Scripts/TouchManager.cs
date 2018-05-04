@@ -24,7 +24,7 @@ public class TouchManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		score = 0;
-        comboText.text = "0".ToString();
+        comboText.gameObject.SetActive(false);
         for (int i = 0; i < foodStatus.Length; i++)
         {
             foodStatus[i] = false;
@@ -50,7 +50,7 @@ public class TouchManager : MonoBehaviour {
                 if (objectAbove[0].transform.position.y >= transform.position.y + 5 || objectAbove[0].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[0]);
-					textStatus.text = "ceker good";
+                    textStatus.text = "good";//"ceker good";
                     //foodPressed[0] = true;
                     UpdateScore(0, 1);
 
@@ -59,7 +59,7 @@ public class TouchManager : MonoBehaviour {
                 } else if (objectAbove[0].transform.position.y <= transform.position.y + 5 && objectAbove[0].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[0]);
-					textStatus.text = "ceker perfect";
+                    textStatus.text = "perfect";//"ceker perfect";
                     //foodPressed[0] = true;
                     UpdateScore(0,0);
 
@@ -91,7 +91,7 @@ public class TouchManager : MonoBehaviour {
                 if (objectAbove[1].transform.position.y >= transform.position.y + 5 || objectAbove[1].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[1]);
-					textStatus.text = "kerupuk good";
+                    textStatus.text = "good";//"kerupuk good";
                     //foodPressed[1] = true;
                     UpdateScore(1,1);
 
@@ -101,7 +101,7 @@ public class TouchManager : MonoBehaviour {
                 else if (objectAbove[1].transform.position.y <= transform.position.y + 5 && objectAbove[1].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[1]);
-					textStatus.text = "kerupuk perfect";
+					textStatus.text = "perfect";//"kerupuk perfect";
                     //foodPressed[1] = true;
                     UpdateScore(1,0);
 
@@ -124,7 +124,7 @@ public class TouchManager : MonoBehaviour {
                 if (objectAbove[2].transform.position.y >= transform.position.y + 5 || objectAbove[2].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[2]);
-					textStatus.text = "siomay good";
+					textStatus.text = "good";//"siomay good";
                     //foodPressed[2] = true;
                     UpdateScore(2,1);
 
@@ -134,7 +134,7 @@ public class TouchManager : MonoBehaviour {
                 else if (objectAbove[2].transform.position.y <= transform.position.y + 5 && objectAbove[2].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[2]);
-					textStatus.text = "siomay perfect";
+					textStatus.text = "perfect";//"siomay perfect";
                     //foodPressed[2] = true;
                     UpdateScore(2,0);
 
@@ -167,7 +167,7 @@ public class TouchManager : MonoBehaviour {
                 if (objectAbove[3].transform.position.y >= transform.position.y + 5 || objectAbove[3].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[3]);
-					textStatus.text = "bakso good";
+					textStatus.text = "good";//"bakso good";
                     //foodPressed[3] = true;
                     UpdateScore(3,1);
 
@@ -177,7 +177,7 @@ public class TouchManager : MonoBehaviour {
                 else if (objectAbove[3].transform.position.y <= transform.position.y + 5 && objectAbove[3].transform.position.y >= transform.position.y - 5)
                 {
                     Destroy(objectAbove[3]);
-					textStatus.text = "bakso perfect";
+                    textStatus.text = "perfect";//"bakso perfect";
                     //foodPressed[3] = true;
                     UpdateScore(3,0);
 
@@ -199,6 +199,70 @@ public class TouchManager : MonoBehaviour {
         }
     }
 
+    private float startTime;
+    private float endTime;
+    private Vector3 startPos;
+    private Vector3 endPos;
+    private float swipeDistance;
+    private float swipeTime;
+    private float maxTime = 0.3f;
+    private float minSwipeDist = 0.3f;
+    private int fingerId;
+
+    void detectTouch(Touch touch)
+    {
+        if (touch.phase == TouchPhase.Began)
+        {
+            fingerId = touch.fingerId;
+            startTime = Time.time;
+            startPos = touch.position;
+        } else if (touch.phase == TouchPhase.Ended)
+        {
+            endTime = Time.time;
+            endPos = touch.position;
+
+            swipeDistance = (endPos - startPos).magnitude;
+            swipeTime = endTime - startTime;
+
+            if (touch.fingerId == fingerId && swipeTime < maxTime && swipeDistance > minSwipeDist)
+            {
+                Vector2 distance = endPos - startPos;
+                if (Mathf.Abs(distance.x) > Mathf.Abs(distance.y))
+                {
+                    // Debug.Log("Horizontal swipe");
+                    if (distance.x > 0)
+                    {
+                        // Debug.Log("Right Swipe");
+                        // swipeRightScreen();
+                    } else if (distance.x < 0)
+                    {
+                        // Debug.Log("Left Swipe");
+                        swipeLeftScreen();
+                    }
+                } else if (Mathf.Abs(distance.y) > Mathf.Abs(distance.x))
+                {
+                    // Debug.Log("Vertical swipe");
+                    if (distance.y > 0)
+                    {
+                        // Debug.Log("Up Swipe");
+                        swipeUpScreen();
+                    }
+                    else if (distance.y < 0)
+                    {
+                        // Debug.Log("Down Swipe");
+                        swipeDownScreen();
+                    }
+                }
+            } else if (touch.fingerId == fingerId && swipeTime < maxTime && swipeDistance < minSwipeDist)
+            {
+                // Debug.Log("Tap");
+                circleScreen();
+            }
+
+            fingerId = -1;
+        }
+    }
+
     void Update() {
 		foreach(Touch touch in Input.touches)
         {
@@ -206,14 +270,15 @@ public class TouchManager : MonoBehaviour {
             if(screen.Contains(touch.position))
             {
                 fingerTouch = true;
+                detectTouch(touch);
             }
             
             //SimpleGesture.OnZigZag(zigZagScreen);
-            SimpleGesture.OnCircle(circleScreen);
-            SimpleGesture.On4AxisSwipeLeft(swipeLeftScreen);
+            // SimpleGesture.OnTap(circleScreen);
+            // SimpleGesture.On4AxisSwipeLeft(swipeLeftScreen);
             //SimpleGesture.On4AxisSwipeRight(swipeRightScreen);
-            SimpleGesture.On4AxisSwipeUp(swipeUpScreen);
-            SimpleGesture.On4AxisSwipeDown(swipeDownScreen);
+            // SimpleGesture.On4AxisSwipeUp(swipeUpScreen);
+            // SimpleGesture.On4AxisSwipeDown(swipeDownScreen);
             //SimpleGesture.OnTap(tapScreen);
         }
     }
@@ -279,6 +344,12 @@ public class TouchManager : MonoBehaviour {
 	void UpdateScore(int foodNumber, int match) {
         combo = PlayerPrefs.GetFloat("combo") + 1;
         comboText.text = combo.ToString();
+
+        if (combo == 1)
+        {
+            StartCoroutine(showCombo());
+        } 
+
         PlayerPrefs.SetFloat("combo", PlayerPrefs.GetFloat("combo") + 1);
 
         score = (float)(IntParse(scoreText.text));
@@ -324,4 +395,12 @@ public class TouchManager : MonoBehaviour {
 		}
 		return result;
 	}
+
+    IEnumerator showCombo()
+    {
+        comboText.transform.localScale += new Vector3(-0.5f, -0.5f, 0);
+        comboText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        comboText.transform.localScale += new Vector3(0.5f, 0.5f, 0);
+    }
 }

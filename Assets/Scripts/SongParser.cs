@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SongParser : MonoBehaviour
 {
@@ -77,15 +78,45 @@ public class SongParser : MonoBehaviour
     private float barExecutedTime = 0;
     private int barCount = 0;
     private NoteData noteData;
-    private AudioSource songAudio;
+    private AudioClip sourceAudio;
+    private AudioSource songAudio = new AudioSource();
+    private string song_source;
+    private string song_name;
+    private int idx_song;
 
     // Use this for initialization
     void Start()
     {
+        // add song for the game
+        idx_song = PlayerPrefs.GetInt("songs");
+        songAudio = GetComponent<AudioSource>();
+
+        if (idx_song >= 0 && idx_song <= 3)
+        {
+            if (idx_song == 0)
+            {
+                song_name = "fancy";
+            } else if (idx_song == 1)
+            {
+                song_name = "beethoven";
+            } else if (idx_song == 2)
+            {
+                song_name = "elektronokimia";
+            } else
+            {
+                song_name = "spectre";
+            }
+        } else
+        {
+            song_name = "spectre";
+        }
+
+        sourceAudio = Resources.Load("Sounds/" + song_name, typeof(AudioClip)) as AudioClip;
+        songAudio.clip = sourceAudio;
+
         PlayerPrefs.SetFloat("combo", 0);
-        songAudio = transform.GetComponent<AudioSource>();
         songAudio.Play();
-        TextAsset level = Resources.Load("External/demo", typeof(TextAsset)) as TextAsset;
+        TextAsset level = Resources.Load("External/" + song_name, typeof(TextAsset)) as TextAsset;
         
         //string filePath = "Assets/Resources/External/demo.sm";
         //Check if the file path is empty
@@ -108,7 +139,7 @@ public class SongParser : MonoBehaviour
         List<string> fileData = level.text.Split('\n').ToList(); //C#//File.ReadAllLines(filePath).ToList();
 
         //Get the file directory, and make sure it ends with either forward or backslash
-        string fileDir = Path.GetDirectoryName("External/demo.txt");
+        string fileDir = Path.GetDirectoryName("External/" + song_name + ".txt");
         if (!fileDir.EndsWith("\\") && !fileDir.EndsWith("/"))
         {
             fileDir += "\\";
@@ -362,7 +393,7 @@ public class SongParser : MonoBehaviour
     {
         for (int i = 0; i < bar.Count; i++)
         {
-            if (bar[i].left > 0)
+            if (bar[i].left > 0 && bar[i].left < 5)
             {
                 int x = -100;
                 int y = 110;
@@ -386,19 +417,24 @@ public class SongParser : MonoBehaviour
                     obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 } else
                 {
-                    textLeft.text = "circle";
+                    textLeft.text = "tap";
                     resource = "Prefabs/Bakso";
                     obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
+                Debug.Log("left: " + bar[i].left.ToString());
                 obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
+            } else if (bar[i].left == 5)
+            {
+                yield return new WaitForSeconds(5.0f);
+                SceneManager.LoadScene(0);
             }
-            if (bar[i].right > 0)
+            if (bar[i].right > 0 && bar[i].right < 5)
             {
                 int x = 100;
                 int y = 110;
                 int z = 10;
                 string resource;
-                GameObject obj;
+                GameObject obj = null;
                 if (bar[i].right == 1)
                 {
                     textRight.text = "swipe left";
@@ -417,13 +453,14 @@ public class SongParser : MonoBehaviour
                     resource = "Prefabs/Siomay";
                     obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
                 }
-                else
+                else 
                 {
-                    textRight.text = "circle";
+                    textRight.text = "tap";
                     resource = "Prefabs/Bakso";
                     obj = (GameObject)Instantiate(Resources.Load(resource), new Vector3(x, y, z), Quaternion.identity);
-                }
+                } 
                 obj.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
+                Debug.Log("right: " + bar[i].right.ToString());
             }
             yield return new WaitForSeconds((barTime / bar.Count) - Time.deltaTime);
         }

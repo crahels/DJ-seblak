@@ -39,10 +39,13 @@ public class DetectMiss : MonoBehaviour {
                 item = "siomay";
             }
 
+            item = "";
+
             status.text = item + " miss";
 
             PlayerPrefs.SetFloat("combo", 0);
-            comboText.text = "0".ToString();
+            comboText.gameObject.SetActive(false);
+            //comboText.text = "0".ToString();
         }
 
         Destroy(col.gameObject);
