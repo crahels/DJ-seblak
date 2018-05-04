@@ -8,29 +8,31 @@ public class TouchManager : MonoBehaviour {
 	public Text scoreText;
 	public Text comboText;
     public int left_or_right; // 0: left, 1: right
+    public Queue<GameObject> queueOfNotes = new Queue<GameObject>();
+    public Text status;
 
-    private Rect screen;
-
-    private bool[] foodStatus = new bool[4]; // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
+    // private bool[] foodStatus = new bool[4]; // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
     //private bool[] foodPressed = new bool[4];
+    private Rect screen;
     private bool fingerTouch = false;
 	private float score;
 	private float combo;
 	private float bonus;
 	private float matchMultiplication;
 
-    private GameObject[] objectAbove = new GameObject[4];
+    // private GameObject[] objectAbove = new GameObject[4];
 
 	// Use this for initialization
 	void Start () {
 		score = 0;
         comboText.gameObject.SetActive(false);
-        for (int i = 0; i < foodStatus.Length; i++)
+        queueOfNotes.Clear();
+        /* for (int i = 0; i < foodStatus.Length; i++)
         {
             foodStatus[i] = false;
             //foodPressed[i] = false;
             objectAbove[i] = null;
-        }
+        } */
 
         if (left_or_right == 0) {
             screen = new Rect(0, 0, Screen.width / 2, Screen.height); // left side
@@ -45,7 +47,24 @@ public class TouchManager : MonoBehaviour {
         if (fingerTouch)
         {
             //text.text = "swipe left";
-            if (foodStatus[0])
+            if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals("Ceker(Clone)"))
+            {
+                if (queueOfNotes.Peek().transform.position.y >= transform.position.y + 5 || queueOfNotes.Peek().transform.position.y <= transform.position.y - 5)
+                {
+                    GameObject ceker = queueOfNotes.Dequeue();
+                    Destroy(ceker);
+                    textStatus.text = "good";//"ceker good";
+                    UpdateScore(0, 1);
+                }
+                else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
+                {
+                    GameObject ceker = queueOfNotes.Dequeue();
+                    Destroy(ceker);
+                    textStatus.text = "perfect";//"ceker perfect";
+                    UpdateScore(0, 0);
+                }
+            }
+            /*if (foodStatus[0])
             {
                 if (objectAbove[0].transform.position.y >= transform.position.y + 5 || objectAbove[0].transform.position.y <= transform.position.y - 5)
                 {
@@ -61,12 +80,12 @@ public class TouchManager : MonoBehaviour {
                     Destroy(objectAbove[0]);
                     textStatus.text = "perfect";//"ceker perfect";
                     //foodPressed[0] = true;
-                    UpdateScore(0,0);
+                    UpdateScore(0, 0);
 
                     foodStatus[0] = false;
                     objectAbove[0] = null;
                 }
-            }
+            }*/
 
             fingerTouch = false;
         }
@@ -86,14 +105,33 @@ public class TouchManager : MonoBehaviour {
         if (fingerTouch)
         {
             //text.text = "swipe up";
-            if (foodStatus[1])
+
+            if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals("Kerupuk(Clone)"))
+            {
+                if (queueOfNotes.Peek().transform.position.y >= transform.position.y + 5 || queueOfNotes.Peek().transform.position.y <= transform.position.y - 5)
+                {
+                    GameObject kerupuk = queueOfNotes.Dequeue();
+                    Destroy(kerupuk);
+                    textStatus.text = "good";//"kerupuk good";
+                    UpdateScore(1, 1);
+                }
+                else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
+                {
+                    GameObject kerupuk = queueOfNotes.Dequeue();
+                    Destroy(kerupuk);
+                    textStatus.text = "perfect";//"kerupuk perfect";
+                    UpdateScore(1, 0);
+                }
+            }
+
+            /*if (foodStatus[1])
             {
                 if (objectAbove[1].transform.position.y >= transform.position.y + 5 || objectAbove[1].transform.position.y <= transform.position.y - 5)
                 {
                     Destroy(objectAbove[1]);
                     textStatus.text = "good";//"kerupuk good";
                     //foodPressed[1] = true;
-                    UpdateScore(1,1);
+                    UpdateScore(1, 1);
 
                     foodStatus[1] = false;
                     objectAbove[1] = null;
@@ -103,12 +141,12 @@ public class TouchManager : MonoBehaviour {
                     Destroy(objectAbove[1]);
 					textStatus.text = "perfect";//"kerupuk perfect";
                     //foodPressed[1] = true;
-                    UpdateScore(1,0);
+                    UpdateScore(1, 0);
 
                     foodStatus[1] = false;
                     objectAbove[1] = null;
                 }
-            }
+            }*/
 
             fingerTouch = false;
         }
@@ -119,7 +157,26 @@ public class TouchManager : MonoBehaviour {
         if (fingerTouch)
         {
             //text.text = "swipe down";
-            if (foodStatus[2])
+
+            if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals("Siomay(Clone)"))
+            {
+                if (queueOfNotes.Peek().transform.position.y >= transform.position.y + 5 || queueOfNotes.Peek().transform.position.y <= transform.position.y - 5)
+                {
+                    GameObject siomay = queueOfNotes.Dequeue();
+                    Destroy(siomay);
+                    textStatus.text = "good";//"siomay good";
+                    UpdateScore(2, 1);
+                }
+                else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
+                {
+                    GameObject siomay = queueOfNotes.Dequeue();
+                    Destroy(siomay);
+                    textStatus.text = "perfect";//"siomay perfect";
+                    UpdateScore(2, 0);
+                }
+            }
+
+            /*if (foodStatus[2])
             {
                 if (objectAbove[2].transform.position.y >= transform.position.y + 5 || objectAbove[2].transform.position.y <= transform.position.y - 5)
                 {
@@ -142,7 +199,7 @@ public class TouchManager : MonoBehaviour {
                     objectAbove[2] = null;
                 }
                 
-            } 
+            } */
 
             fingerTouch = false;
         }
@@ -162,7 +219,26 @@ public class TouchManager : MonoBehaviour {
         if (fingerTouch)
         {
             //text.text = "circle";
-            if (foodStatus[3])
+
+            if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals("Bakso(Clone)"))
+            {
+                if (queueOfNotes.Peek().transform.position.y >= transform.position.y + 5 || queueOfNotes.Peek().transform.position.y <= transform.position.y - 5)
+                {
+                    GameObject bakso = queueOfNotes.Dequeue();
+                    Destroy(bakso);
+                    textStatus.text = "good";//"bakso good";
+                    UpdateScore(3, 1);
+                }
+                else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
+                {
+                    GameObject bakso = queueOfNotes.Dequeue();
+                    Destroy(bakso);
+                    textStatus.text = "perfect";//"bakso perfect";
+                    UpdateScore(3, 0);
+                }
+            }
+
+            /*if (foodStatus[3])
             {
                 if (objectAbove[3].transform.position.y >= transform.position.y + 5 || objectAbove[3].transform.position.y <= transform.position.y - 5)
                 {
@@ -184,7 +260,7 @@ public class TouchManager : MonoBehaviour {
                     foodStatus[3] = false;
                     objectAbove[3] = null;
                 } 
-            } 
+            } */
 
             fingerTouch = false;
         }
@@ -205,8 +281,9 @@ public class TouchManager : MonoBehaviour {
     private Vector3 endPos;
     private float swipeDistance;
     private float swipeTime;
-    private float maxTime = 0.3f;
-    private float minSwipeDist = 0.3f;
+    private float maxTime = 0.5f;
+    private float minSwipeDist = 10.0f;
+    private float tapRange = 0.5f;
     private int fingerId;
 
     void detectTouch(Touch touch)
@@ -253,13 +330,26 @@ public class TouchManager : MonoBehaviour {
                         swipeDownScreen();
                     }
                 }
-            } else if (touch.fingerId == fingerId && swipeTime < maxTime && swipeDistance < minSwipeDist)
+            } else if (touch.fingerId == fingerId && swipeTime < maxTime && swipeDistance < tapRange)
             {
                 // Debug.Log("Tap");
                 circleScreen();
             }
 
             fingerId = -1;
+        }
+    }
+
+    void DequeueQueue(GameObject col)
+    {
+        if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals(col.gameObject.name)) {
+            GameObject note = queueOfNotes.Dequeue();
+            Destroy(note);
+
+            status.text = "miss";
+
+            PlayerPrefs.SetFloat("combo", 0);
+            comboText.gameObject.SetActive(false);
         }
     }
 
@@ -287,30 +377,45 @@ public class TouchManager : MonoBehaviour {
     {
         if (col.gameObject.tag.Equals("Food"))
         {
+            queueOfNotes.Enqueue(col.gameObject);
             // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
-            if (col.gameObject.name.Equals("Bakso(Clone)"))
+            /* if (col.gameObject.name.Equals("Bakso(Clone)"))
             {
-                objectAbove[3] = col.gameObject;
-                foodStatus[3] = true;
+                // objectAbove[3] = col.gameObject;
+                // foodStatus[3] = true;
             } else if (col.gameObject.name.Equals("Ceker(Clone)"))
             {
-                objectAbove[0] = col.gameObject;
-                foodStatus[0] = true; 
+                // objectAbove[0] = col.gameObject;
+                // foodStatus[0] = true; 
             } else if (col.gameObject.name.Equals("Kerupuk(Clone)"))
             {
-                objectAbove[1] = col.gameObject;
-                foodStatus[1] = true;
+                // objectAbove[1] = col.gameObject;
+                // foodStatus[1] = true;
             } else // Siomay
             {
-                objectAbove[2] = col.gameObject;
-                foodStatus[2] = true;
-            }
+                // objectAbove[2] = col.gameObject;
+                // foodStatus[2] = true;
+            } */
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        int code = -1;
+        /*if (col.gameObject.tag.Equals("Food"))
+        {
+            if (queueOfNotes.Count > 0 && queueOfNotes.Peek().name.Equals(col.gameObject.name)) {
+                GameObject note = queueOfNotes.Dequeue();
+                Destroy(note);
+
+                status.text = "miss";
+
+                PlayerPrefs.SetFloat("combo", 0);
+                comboText.gameObject.SetActive(false);
+            }
+        }*/
+
+        //comboText.text = "0".ToString();
+        /*int code = -1;
         if (col.gameObject.tag.Equals("Food"))
         {
             // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
@@ -335,13 +440,13 @@ public class TouchManager : MonoBehaviour {
             objectAbove[code] = null;
         }
 
-        //Destroy(col.gameObject);
+        //Destroy(col.gameObject);*/
     }
 
-	// Melakukan perbaharuan score
-	// foodNumber 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
-	// match 0: perfect, 1:good
-	void UpdateScore(int foodNumber, int match) {
+    // Melakukan perbaharuan score
+    // foodNumber 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
+    // match 0: perfect, 1:good
+    void UpdateScore(int foodNumber, int match) {
         combo = PlayerPrefs.GetFloat("combo") + 1;
         comboText.text = combo.ToString();
 

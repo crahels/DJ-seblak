@@ -20,6 +20,17 @@ public class DetectMiss : MonoBehaviour {
     {
         if (col.gameObject.tag.Equals("Food"))
         {
+            if (this.tag.Equals("PanciLeft"))
+            {
+                GameObject.Find("LeftActivator").SendMessage("DequeueQueue", col.gameObject);
+            } else if (this.tag.Equals("PanciRight"))
+            {
+                GameObject.Find("RightActivator").SendMessage("DequeueQueue", col.gameObject);
+            }
+        }
+  
+        /*if (col.gameObject.tag.Equals("Food"))
+        {
             string item = "";
             // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
             if (col.gameObject.name.Equals("Bakso(Clone)"))
@@ -48,6 +59,6 @@ public class DetectMiss : MonoBehaviour {
             //comboText.text = "0".ToString();
         }
 
-        Destroy(col.gameObject);
+        Destroy(col.gameObject);*/
     }
 }
