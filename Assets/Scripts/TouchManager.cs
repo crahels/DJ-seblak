@@ -53,8 +53,9 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
-                    textStatus.color = new Color(0f, 0f, 255f);
+                    textStatus.color = new Color(52f, 204f, 255f);
                     textStatus.text = "good";//"ceker good";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(0, 1);
                 }
@@ -65,6 +66,7 @@ public class TouchManager : MonoBehaviour {
 
                     textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"ceker perfect";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(0, 0);
                 }
@@ -117,8 +119,9 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
-                    textStatus.color = new Color(0f, 0f, 255f);
+                    textStatus.color = new Color(52f, 204f, 255f);
                     textStatus.text = "good";//"kerupuk good";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(1, 1);
                 }
@@ -128,6 +131,7 @@ public class TouchManager : MonoBehaviour {
                     Destroy(kerupuk);
                     textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"kerupuk perfect";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(1, 0);
                 }
@@ -173,8 +177,9 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
-                    textStatus.color = new Color(0f, 0f, 255f);
+                    textStatus.color = new Color(52f, 204f, 255f);
                     textStatus.text = "good";//"siomay good";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(2, 1);
                 }
@@ -184,6 +189,7 @@ public class TouchManager : MonoBehaviour {
                     Destroy(siomay);
                     textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"siomay perfect";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(2, 0);
                 }
@@ -239,8 +245,9 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
-                    textStatus.color = new Color(0f, 0f, 255f);
+                    textStatus.color = new Color(52f, 204f, 255f);
                     textStatus.text = "good";//"bakso good";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(3, 1);
                 }
@@ -250,6 +257,7 @@ public class TouchManager : MonoBehaviour {
                     Destroy(bakso);
                     textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"bakso perfect";
+                    GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(3, 0);
                 }
@@ -365,8 +373,8 @@ public class TouchManager : MonoBehaviour {
 
             status.color = new Color(255f, 0f, 0f);
             status.text = "miss";
+            GameObject.Find("LifeBarFill").SendMessage("updateHealth", -5);
             StartCoroutine(showStatus(0));
-
 
             PlayerPrefs.SetFloat("combo", 0);
             comboText.gameObject.SetActive(false);

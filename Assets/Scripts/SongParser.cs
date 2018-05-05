@@ -426,7 +426,7 @@ public class SongParser : MonoBehaviour
             } else if (bar[i].left == 5)
             {
                 yield return new WaitForSeconds(5.0f);
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(4);
             }
             if (bar[i].right > 0 && bar[i].right < 5)
             {
