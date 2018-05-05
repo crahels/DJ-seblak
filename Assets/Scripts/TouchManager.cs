@@ -53,7 +53,7 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
-                    textStatus.color = new Color(52f, 204f, 255f);
+                    textStatus.color = new Color(0f, 202f, 255f);
                     textStatus.text = "good";//"ceker good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
@@ -119,7 +119,7 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
-                    textStatus.color = new Color(52f, 204f, 255f);
+                    textStatus.color = new Color(0f, 202f, 255f);
                     textStatus.text = "good";//"kerupuk good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
@@ -177,7 +177,7 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
-                    textStatus.color = new Color(52f, 204f, 255f);
+                    textStatus.color = new Color(0f, 202f, 255f);
                     textStatus.text = "good";//"siomay good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
@@ -245,7 +245,7 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
-                    textStatus.color = new Color(52f, 204f, 255f);
+                    textStatus.color = new Color(0f, 202f, 255f);
                     textStatus.text = "good";//"bakso good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
