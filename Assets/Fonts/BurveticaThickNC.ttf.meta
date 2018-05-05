@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 8797f639eb922964b9b858c7c2c77b1a
+timeCreated: 1525479258
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Burvetica Thick NC
+  fontNames:
+  - Burvetica Thick NC
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
