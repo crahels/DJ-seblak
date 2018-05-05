@@ -53,14 +53,19 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
+                    textStatus.color = new Color(0f, 0f, 255f);
                     textStatus.text = "good";//"ceker good";
+                    StartCoroutine(showStatus(1));
                     UpdateScore(0, 1);
                 }
                 else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
                 {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
+
+                    textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"ceker perfect";
+                    StartCoroutine(showStatus(2));
                     UpdateScore(0, 0);
                 }
             }
@@ -112,14 +117,18 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
+                    textStatus.color = new Color(0f, 0f, 255f);
                     textStatus.text = "good";//"kerupuk good";
+                    StartCoroutine(showStatus(1));
                     UpdateScore(1, 1);
                 }
                 else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
+                    textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"kerupuk perfect";
+                    StartCoroutine(showStatus(2));
                     UpdateScore(1, 0);
                 }
             }
@@ -164,14 +173,18 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
+                    textStatus.color = new Color(0f, 0f, 255f);
                     textStatus.text = "good";//"siomay good";
+                    StartCoroutine(showStatus(1));
                     UpdateScore(2, 1);
                 }
                 else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
+                    textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"siomay perfect";
+                    StartCoroutine(showStatus(2));
                     UpdateScore(2, 0);
                 }
             }
@@ -226,14 +239,18 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
+                    textStatus.color = new Color(0f, 0f, 255f);
                     textStatus.text = "good";//"bakso good";
+                    StartCoroutine(showStatus(1));
                     UpdateScore(3, 1);
                 }
                 else if (queueOfNotes.Peek().transform.position.y <= transform.position.y + 5 && queueOfNotes.Peek().transform.position.y >= transform.position.y - 5)
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
+                    textStatus.color = new Color(0f, 255f, 0f);
                     textStatus.text = "perfect";//"bakso perfect";
+                    StartCoroutine(showStatus(2));
                     UpdateScore(3, 0);
                 }
             }
@@ -346,7 +363,10 @@ public class TouchManager : MonoBehaviour {
             GameObject note = queueOfNotes.Dequeue();
             Destroy(note);
 
+            status.color = new Color(255f, 0f, 0f);
             status.text = "miss";
+            StartCoroutine(showStatus(0));
+
 
             PlayerPrefs.SetFloat("combo", 0);
             comboText.gameObject.SetActive(false);
@@ -507,5 +527,67 @@ public class TouchManager : MonoBehaviour {
         comboText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         comboText.transform.localScale += new Vector3(0.5f, 0.5f, 0);
+    }
+
+    IEnumerator showStatus(int code)
+    {
+        /*Vector3 posLeft = new Vector3(-110.0f, -90.0f);
+        Vector3 posRight = new Vector3(100.0f, -90.0f);
+
+        Vector3 posLeftDestination = new Vector3(-90.0f, -90.0f);
+        Vector3 posRightDestination = new Vector3(120.0f, -90.0f);
+
+        if (left_or_right == 0) // left
+        {
+            Debug.Log("left");
+            status.transform.position = posLeft;
+            status.gameObject.SetActive(true);
+            status.transform.position = Vector3.Lerp(posLeft, posLeftDestination, Time.deltaTime * 100.0f);
+            status.gameObject.SetActive(false);
+        } else // right
+        {
+            Debug.Log("right");
+            status.transform.position = posRight;
+            status.gameObject.SetActive(true);
+            status.transform.position = Vector3.Lerp(posRight, posRightDestination, Time.deltaTime * 100.0f);
+            status.gameObject.SetActive(false);
+        }*/
+        
+        float posXLeft = -110.0f;
+        float posXRight = 100.0f;
+
+        // 0: miss
+        // 1: good
+        // 2: perfect
+
+        if (left_or_right == 0) // left
+        {
+            status.transform.position = new Vector3(posXLeft, -80.0f);
+        }
+        else // right
+        {
+            status.transform.position = new Vector3(posXRight, -80.0f);
+        }
+
+        status.gameObject.SetActive(true);
+
+        for (int i = 0; i < 30; i++)
+        {
+            if (left_or_right == 0) // left
+            {
+                status.transform.position = new Vector3(posXLeft, -80.0f);
+            }
+            else // right
+            {
+                status.transform.position = new Vector3(posXRight, -80.0f);
+            }
+
+            posXLeft += 0.2f;
+            posXRight += 0.2f;
+
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        status.gameObject.SetActive(false);
     }
 }
