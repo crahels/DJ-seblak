@@ -63,8 +63,11 @@ public class SwipeScreen : MonoBehaviour {
     void swipeRightScreen()
     {
         pageNow--;
-        pageNow = pageNow % 3;
-
+        if (pageNow < 0)
+        {
+            pageNow = 3 + pageNow;
+        }
+        //pageNow = pageNow % 3;
         changeBackground();
     }
 

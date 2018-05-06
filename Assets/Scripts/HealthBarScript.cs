@@ -36,9 +36,9 @@ public class HealthBarScript : MonoBehaviour {
             health = 0.0f;
         }
 
-        float result = health / maxHealth;
+        /*float result = health / maxHealth;
 
-        /*if (result >= 0.75f)
+        if (result >= 0.75f)
         {
             healthBar.color = new Color(0f, 255f, 0f);
         } else if (result >= 0.25f && result < 0.75f)
