@@ -7,9 +7,14 @@ public class TouchManager : MonoBehaviour {
     public Text textStatus;
 	public Text scoreText;
 	public Text comboText;
+    public Text comboSign;
     public int left_or_right; // 0: left, 1: right
     public Queue<GameObject> queueOfNotes = new Queue<GameObject>();
-    public Text status;
+
+    // mark
+    public Image miss;
+    public Image perfect;
+    public Image good;
 
     // private bool[] foodStatus = new bool[4]; // 0: ceker, 1: kerupuk, 2: siomay, 3: bakso
     //private bool[] foodPressed = new bool[4];
@@ -26,6 +31,8 @@ public class TouchManager : MonoBehaviour {
 	void Start () {
 		score = 0;
         comboText.gameObject.SetActive(false);
+        comboSign.gameObject.SetActive(false);
+
         queueOfNotes.Clear();
         /* for (int i = 0; i < foodStatus.Length; i++)
         {
@@ -33,6 +40,10 @@ public class TouchManager : MonoBehaviour {
             //foodPressed[i] = false;
             objectAbove[i] = null;
         } */
+
+        miss.gameObject.SetActive(false);
+        good.gameObject.SetActive(false);
+        perfect.gameObject.SetActive(false);
 
         if (left_or_right == 0) {
             screen = new Rect(0, 0, Screen.width / 2, Screen.height); // left side
@@ -53,8 +64,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
-                    textStatus.color = new Color(0f, 202f, 255f);
-                    textStatus.text = "good";//"ceker good";
+                    // textStatus.color = new Color(0f, 202f, 255f);
+                    // textStatus.text = "good";//"ceker good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(0, 1);
@@ -64,8 +75,8 @@ public class TouchManager : MonoBehaviour {
                     GameObject ceker = queueOfNotes.Dequeue();
                     Destroy(ceker);
 
-                    textStatus.color = new Color(0f, 255f, 0f);
-                    textStatus.text = "perfect";//"ceker perfect";
+                    // textStatus.color = new Color(0f, 255f, 0f);
+                    // textStatus.text = "perfect";//"ceker perfect";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(0, 0);
@@ -119,8 +130,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
-                    textStatus.color = new Color(0f, 202f, 255f);
-                    textStatus.text = "good";//"kerupuk good";
+                    // textStatus.color = new Color(0f, 202f, 255f);
+                    // textStatus.text = "good";//"kerupuk good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(1, 1);
@@ -129,8 +140,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject kerupuk = queueOfNotes.Dequeue();
                     Destroy(kerupuk);
-                    textStatus.color = new Color(0f, 255f, 0f);
-                    textStatus.text = "perfect";//"kerupuk perfect";
+                    // textStatus.color = new Color(0f, 255f, 0f);
+                    // textStatus.text = "perfect";//"kerupuk perfect";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(1, 0);
@@ -177,8 +188,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
-                    textStatus.color = new Color(0f, 202f, 255f);
-                    textStatus.text = "good";//"siomay good";
+                    // textStatus.color = new Color(0f, 202f, 255f);
+                    // textStatus.text = "good";//"siomay good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(2, 1);
@@ -187,8 +198,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject siomay = queueOfNotes.Dequeue();
                     Destroy(siomay);
-                    textStatus.color = new Color(0f, 255f, 0f);
-                    textStatus.text = "perfect";//"siomay perfect";
+                    // textStatus.color = new Color(0f, 255f, 0f);
+                    // textStatus.text = "perfect";//"siomay perfect";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(2, 0);
@@ -245,8 +256,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
-                    textStatus.color = new Color(0f, 202f, 255f);
-                    textStatus.text = "good";//"bakso good";
+                    // textStatus.color = new Color(0f, 202f, 255f);
+                    // textStatus.text = "good";//"bakso good";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 5);
                     StartCoroutine(showStatus(1));
                     UpdateScore(3, 1);
@@ -255,8 +266,8 @@ public class TouchManager : MonoBehaviour {
                 {
                     GameObject bakso = queueOfNotes.Dequeue();
                     Destroy(bakso);
-                    textStatus.color = new Color(0f, 255f, 0f);
-                    textStatus.text = "perfect";//"bakso perfect";
+                    // textStatus.color = new Color(0f, 255f, 0f);
+                    // textStatus.text = "perfect";//"bakso perfect";
                     GameObject.Find("LifeBarFill").SendMessage("updateHealth", 10);
                     StartCoroutine(showStatus(2));
                     UpdateScore(3, 0);
@@ -371,13 +382,14 @@ public class TouchManager : MonoBehaviour {
             GameObject note = queueOfNotes.Dequeue();
             Destroy(note);
 
-            status.color = new Color(255f, 0f, 0f);
-            status.text = "miss";
+            // status.color = new Color(255f, 0f, 0f);
+            // status.text = "miss";
             GameObject.Find("LifeBarFill").SendMessage("updateHealth", -5);
             StartCoroutine(showStatus(0));
 
             PlayerPrefs.SetFloat("combo", 0);
             comboText.gameObject.SetActive(false);
+            comboSign.gameObject.SetActive(false);
         }
     }
 
@@ -533,34 +545,25 @@ public class TouchManager : MonoBehaviour {
     {
         comboText.transform.localScale += new Vector3(-0.5f, -0.5f, 0);
         comboText.gameObject.SetActive(true);
+        comboSign.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         comboText.transform.localScale += new Vector3(0.5f, 0.5f, 0);
     }
 
     IEnumerator showStatus(int code)
     {
-        /*Vector3 posLeft = new Vector3(-110.0f, -90.0f);
-        Vector3 posRight = new Vector3(100.0f, -90.0f);
-
-        Vector3 posLeftDestination = new Vector3(-90.0f, -90.0f);
-        Vector3 posRightDestination = new Vector3(120.0f, -90.0f);
-
-        if (left_or_right == 0) // left
+        Image mark = null;
+        if (code == 0)
         {
-            Debug.Log("left");
-            status.transform.position = posLeft;
-            status.gameObject.SetActive(true);
-            status.transform.position = Vector3.Lerp(posLeft, posLeftDestination, Time.deltaTime * 100.0f);
-            status.gameObject.SetActive(false);
-        } else // right
+            mark = miss;
+        } else if (code == 1)
         {
-            Debug.Log("right");
-            status.transform.position = posRight;
-            status.gameObject.SetActive(true);
-            status.transform.position = Vector3.Lerp(posRight, posRightDestination, Time.deltaTime * 100.0f);
-            status.gameObject.SetActive(false);
-        }*/
-        
+            mark = good;
+        } else
+        {
+            mark = perfect;
+        }
+
         float posXLeft = -110.0f;
         float posXRight = 100.0f;
 
@@ -570,24 +573,24 @@ public class TouchManager : MonoBehaviour {
 
         if (left_or_right == 0) // left
         {
-            status.transform.position = new Vector3(posXLeft, -80.0f);
+            mark.transform.position = new Vector3(posXLeft, -80.0f);
         }
         else // right
         {
-            status.transform.position = new Vector3(posXRight, -80.0f);
+            mark.transform.position = new Vector3(posXRight, -80.0f);
         }
 
-        status.gameObject.SetActive(true);
+        mark.gameObject.SetActive(true);
 
         for (int i = 0; i < 30; i++)
         {
             if (left_or_right == 0) // left
             {
-                status.transform.position = new Vector3(posXLeft, -80.0f);
+                mark.transform.position = new Vector3(posXLeft, -80.0f);
             }
             else // right
             {
-                status.transform.position = new Vector3(posXRight, -80.0f);
+                mark.transform.position = new Vector3(posXRight, -80.0f);
             }
 
             posXLeft += 0.2f;
@@ -596,6 +599,8 @@ public class TouchManager : MonoBehaviour {
             yield return new WaitForSeconds(0.001f);
         }
 
-        status.gameObject.SetActive(false);
+        miss.gameObject.SetActive(false);
+        good.gameObject.SetActive(false);
+        perfect.gameObject.SetActive(false);
     }
 }

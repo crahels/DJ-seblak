@@ -116,7 +116,7 @@ public class SongParser : MonoBehaviour
 
         PlayerPrefs.SetFloat("combo", 0);
         songAudio.Play();
-        TextAsset level = Resources.Load("External/" + song_name, typeof(TextAsset)) as TextAsset;
+        TextAsset level = Resources.Load("External/" + song_name + "_level" + PlayerPrefs.GetInt("level").ToString(), typeof(TextAsset)) as TextAsset;
         
         //string filePath = "Assets/Resources/External/demo.sm";
         //Check if the file path is empty
@@ -139,7 +139,7 @@ public class SongParser : MonoBehaviour
         List<string> fileData = level.text.Split('\n').ToList(); //C#//File.ReadAllLines(filePath).ToList();
 
         //Get the file directory, and make sure it ends with either forward or backslash
-        string fileDir = Path.GetDirectoryName("External/" + song_name + ".txt");
+        string fileDir = Path.GetDirectoryName("External/" + song_name +"_level" + PlayerPrefs.GetInt("level").ToString() + ".txt");
         if (!fileDir.EndsWith("\\") && !fileDir.EndsWith("/"))
         {
             fileDir += "\\";
