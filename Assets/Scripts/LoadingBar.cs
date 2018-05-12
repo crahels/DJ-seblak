@@ -24,7 +24,7 @@ public class LoadingBar : MonoBehaviour
         loadingBar.fillAmount = loading / maxLoading;
         if (loading >= 100)
         {
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(6);
         }
 
         loading++;

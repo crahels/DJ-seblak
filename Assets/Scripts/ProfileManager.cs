@@ -31,13 +31,13 @@ public class ProfileManager : MonoBehaviour
     {
         // harus diganti
 PlayerPrefs.SetString("Id", "1");
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("Users").Child(PlayerPrefs.GetString("Id"));
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("Users").Child(PlayerPrefs.GetString("user_id"));
         reference.GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
-                Name.text = "User";
+                Name.text = "Anonymous";
 		        Country.text = "Indonesia";
-		        JoinDate.text = "January 1, 2018";
+		        JoinDate.text = "01/01/2018";
 		        Money.text = "0";
 		        Diamond.text = "0";
             }
