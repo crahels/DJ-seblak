@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://djseblak-diamondproduction.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">911492621323</string>
+  <string name="google_storage_bucket" translatable="false">djseblak-diamondproduction.appspot.com</string>
+  <string name="project_id" translatable="false">djseblak-diamondproduction</string>
+  <string name="google_api_key" translatable="false">AIzaSyCMqK8O44meR40ZZMSlzQ3yLwRM-ptq3kc</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCMqK8O44meR40ZZMSlzQ3yLwRM-ptq3kc</string>
+  <string name="google_app_id" translatable="false">1:911492621323:android:334f0da22f0a13c8</string>
+  <string name="default_web_client_id" translatable="false">911492621323-1uo8nisc21qeo0hofk27kfli510nj71r.apps.googleusercontent.com</string>
+</resources>

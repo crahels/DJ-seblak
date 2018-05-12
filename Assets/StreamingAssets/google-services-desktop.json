@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "911492621323",
+    "firebase_url": "https://djseblak-diamondproduction.firebaseio.com",
+    "project_id": "djseblak-diamondproduction",
+    "storage_bucket": "djseblak-diamondproduction.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911492621323:android:334f0da22f0a13c8",
+        "android_client_info": {
+          "package_name": "com.diamond.djseblak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911492621323-1uo8nisc21qeo0hofk27kfli510nj71r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMqK8O44meR40ZZMSlzQ3yLwRM-ptq3kc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
